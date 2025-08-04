@@ -56,46 +56,8 @@ public class  StudentController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<List<UserDto>> getAllStudent() {
-        List<UserDto> studentList = Arrays.asList(
-                new UserDto(
-                        "U001",
-                        "Supuni",
-                        "Chethana",
-                        "supuni@example.com",
-                        "No. 123",
-                        "Main Street",
-                        "Ward Place",
-                        "Colombo",
-                        "securePassword123",
-                        Role.STUDENT
-                ),
-                new UserDto(
-                        "U002",
-                        "Kasun",
-                        "Perera",
-                        "kasun@example.com",
-                        "No. 456",
-                        "Park Avenue",
-                        "Liberty Circle",
-                        "Galle",
-                        "password456",
-                        Role.STUDENT
-                ),
-                new UserDto(
-                        "U003",
-                        "Nadeesha",
-                        "Fernando",
-                        "nadeesha@example.com",
-                        "No. 789",
-                        "River Road",
-                        "Palm Grove",
-                        "Kandy",
-                        "mypassword789",
-                        Role.STUDENT
-                )
-        );
 
-        return new ResponseEntity<>(studentList, HttpStatus.OK);
+        return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
     }
     @PatchMapping
     public void updateStudent(@RequestParam ("stuId") String studentId,@RequestParam String stuCity,@RequestBody UserDto toBeUpdatedStudentDetails){

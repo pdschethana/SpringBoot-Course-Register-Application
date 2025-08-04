@@ -2,28 +2,29 @@ package lk.ijse.cmjd110.courseRegisterPro.service.impl;
 
 import lk.ijse.cmjd110.courseRegisterPro.dto.Role;
 import lk.ijse.cmjd110.courseRegisterPro.dto.UserDto;
-import lk.ijse.cmjd110.courseRegisterPro.service.StudentService;
+import lk.ijse.cmjd110.courseRegisterPro.service.LecturerService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+
 @Service
-public class StudentServiceIMPL implements StudentService {
+public class LecturerServiceIMPL implements LecturerService {
 
     @Override
-    public void saveStudent(UserDto student) {
-
+    public void saveLecture(UserDto lecturer) {
+        // Save logic (dummy for now)
     }
 
     @Override
-    public UserDto getSelectedStudent(String studentId) throws Exception {
+    public UserDto getSelectedStudent(String lecturerId) throws Exception {
+        return null;
+    }
 
-
-        // Hardcoded dummy data
-
-        //return new UserDto                 can write like this . inline variable.
-        UserDto selectedStudent = new UserDto(
-                "U001",
+    @Override
+    public UserDto getSelectedLecturer(String lecturerId) throws Exception {
+        UserDto selectedLecturer = new UserDto(
+                "L001",
                 "Supuni",
                 "Chethana",
                 "supuni@example.com",
@@ -32,20 +33,21 @@ public class StudentServiceIMPL implements StudentService {
                 "Ward Place",
                 "Colombo",
                 "securePassword123",
-                Role.STUDENT
+                Role.LECTURER
         );
-        if (studentId.equals(selectedStudent.getUserId())) {
 
-            return selectedStudent;
+        if (lecturerId.equals(selectedLecturer.getUserId())) {
+            return selectedLecturer;
         }
-        throw new Exception("Student not found");
+
+        throw new Exception("Lecturer not found");
     }
 
     @Override
-    public List<UserDto> getAllStudents() {
-        List<UserDto> studentList = Arrays.asList(
+    public List<UserDto> getAllLecturers() {
+        List<UserDto> lecturerList = Arrays.asList(
                 new UserDto(
-                        "U001",
+                        "L001",
                         "Supuni",
                         "Chethana",
                         "supuni@example.com",
@@ -54,10 +56,10 @@ public class StudentServiceIMPL implements StudentService {
                         "Ward Place",
                         "Colombo",
                         "securePassword123",
-                        Role.STUDENT
+                        Role.LECTURER
                 ),
                 new UserDto(
-                        "U002",
+                        "L002",
                         "Kasun",
                         "Perera",
                         "kasun@example.com",
@@ -66,10 +68,10 @@ public class StudentServiceIMPL implements StudentService {
                         "Liberty Circle",
                         "Galle",
                         "password456",
-                        Role.STUDENT
+                        Role.LECTURER
                 ),
                 new UserDto(
-                        "U003",
+                        "L003",
                         "Nadeesha",
                         "Fernando",
                         "nadeesha@example.com",
@@ -78,20 +80,19 @@ public class StudentServiceIMPL implements StudentService {
                         "Palm Grove",
                         "Kandy",
                         "mypassword789",
-                        Role.STUDENT
+                        Role.LECTURER
                 )
         );
-return studentList;
-
+        return lecturerList;
     }
 
     @Override
-    public void updateStudent(String studentId, UserDto toBeUpdatedStudent) {
-
+    public void updateLecturer(String lecturerId, UserDto toBeUpdatedLecturer) {
+        // Update logic (dummy for now)
     }
 
     @Override
-    public void deleteStudent(String studentId) {
-
+    public void deleteLecturer(String lecturerId) {
+        // Delete logic (dummy for now)
     }
 }
