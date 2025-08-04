@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface StudentService {
     void saveStudent(UserDto student);
-    UserDto getSelectedStudent(String studentId);
+    UserDto getSelectedStudent(String studentId) throws Exception;
     List<UserDto> getAllStudents();
     void updateStudent(String studentId,UserDto toBeUpdatedStudent);
     void deleteStudent(String studentId);

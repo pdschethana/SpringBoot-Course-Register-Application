@@ -40,14 +40,18 @@ public class  StudentController {
         System.out.println("Student id is " + studentId);
         //var studentServiceIMPL=new StudentServiceIMPL();
 
-        var selectedStudent=studentService.getSelectedStudent(studentId);
-
-
-        if (studentId.equals(selectedStudent.getUserId())) {
-
-            return new ResponseEntity<>(selectedStudent, HttpStatus.OK);
+        try{
+            var selectedStudent=new UserDto();
+             selectedStudent=studentService.getSelectedStudent(studentId);
+            return new ResponseEntity<>(selectedStudent,HttpStatus.OK);
+        }catch (Exception ex){
+            // Todo: insert a log message
+            ex.printStackTrace();
+           return  new ResponseEntity<>(HttpStatus.BAD_REQUEST) ;
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+
+
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 

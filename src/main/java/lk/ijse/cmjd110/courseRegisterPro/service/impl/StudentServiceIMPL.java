@@ -3,6 +3,8 @@ package lk.ijse.cmjd110.courseRegisterPro.service.impl;
 import lk.ijse.cmjd110.courseRegisterPro.dto.Role;
 import lk.ijse.cmjd110.courseRegisterPro.dto.UserDto;
 import lk.ijse.cmjd110.courseRegisterPro.service.StudentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +17,13 @@ public class StudentServiceIMPL implements StudentService {
     }
 
     @Override
-    public UserDto getSelectedStudent(String studentId) {
-
+    public UserDto getSelectedStudent(String studentId) throws Exception {
 
 
         // Hardcoded dummy data
 
         //return new UserDto                 can write like this . inline variable.
-        var userDto = new UserDto(
+        UserDto selectedStudent = new UserDto(
                 "U001",
                 "Supuni",
                 "Chethana",
@@ -34,7 +35,11 @@ public class StudentServiceIMPL implements StudentService {
                 "securePassword123",
                 Role.STUDENT
         );
- return userDto;
+        if (studentId.equals(selectedStudent.getUserId())) {
+
+            return selectedStudent;
+        }
+        throw new Exception("Student not found");
     }
 
     @Override
