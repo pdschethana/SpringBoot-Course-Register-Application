@@ -16,10 +16,8 @@ public class LecturerServiceIMPL implements LecturerService {
         // Save logic (dummy for now)
     }
 
-    @Override
-    public UserDto getSelectedStudent(String lecturerId) throws Exception {
-        return null;
-    }
+
+
 
     @Override
     public UserDto getSelectedLecturer(String lecturerId) throws Exception {

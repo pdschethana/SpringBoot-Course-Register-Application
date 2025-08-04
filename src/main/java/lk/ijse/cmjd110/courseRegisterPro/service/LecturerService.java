@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface LecturerService {
     void saveLecture(UserDto lecturer);
-    UserDto getSelectedStudent(String lecturerId) throws Exception;
+
+
 
 
     UserDto getSelectedLecturer(String studentId) throws Exception;

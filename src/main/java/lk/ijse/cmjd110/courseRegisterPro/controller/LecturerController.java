@@ -32,14 +32,14 @@ public class LecturerController {
     }
 
     // Get a selected student
-    @GetMapping(value="{LecturerId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="{lecturerId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getSelectedLecturer(@PathVariable String lecturerId) {
         System.out.println("Lecturer id is " + lecturerId);
         //var studentServiceIMPL=new StudentServiceIMPL();
 
         try{
             var selectedLecturer=new UserDto();
-             selectedLecturer=lecturerService.getSelectedStudent(lecturerId);
+             selectedLecturer=lecturerService.getSelectedLecturer(lecturerId);
             return new ResponseEntity<>(selectedLecturer,HttpStatus.OK);
         }catch (Exception ex){
             // Todo: insert a log message
