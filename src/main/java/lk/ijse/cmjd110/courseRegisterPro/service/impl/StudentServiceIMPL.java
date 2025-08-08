@@ -1,17 +1,30 @@
 package lk.ijse.cmjd110.courseRegisterPro.service.impl;
 
+import jakarta.transaction.Transactional;
+import lk.ijse.cmjd110.courseRegisterPro.dao.StudentDao;
 import lk.ijse.cmjd110.courseRegisterPro.dto.Role;
 import lk.ijse.cmjd110.courseRegisterPro.dto.UserDto;
+import lk.ijse.cmjd110.courseRegisterPro.entities.StudentEntity;
 import lk.ijse.cmjd110.courseRegisterPro.service.StudentService;
+import lk.ijse.cmjd110.courseRegisterPro.util.EntityDTOConversionHandle;
+import lk.ijse.cmjd110.courseRegisterPro.util.IDGenerator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class StudentServiceIMPL implements StudentService {
+    private final StudentDao studentDao;
+    private final EntityDTOConversionHandle conversionHandle;
 
     @Override
     public void saveStudent(UserDto student) {
+        var studentEntity=conversionHandle.toStudentEntity(student);
+        studentEntity.setStudentId(IDGenerator.studentIdGen());
+        studentDao.save(studentEntity);
 
     }
 

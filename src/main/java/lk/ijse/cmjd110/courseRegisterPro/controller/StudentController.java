@@ -30,8 +30,9 @@ public class  StudentController {
 
     // Save student data
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserDto> saveStudent(@RequestBody UserDto userDto) {
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+    public ResponseEntity<Void> saveStudent(@RequestBody UserDto studentDTO) {
+        studentService.saveStudent(studentDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // Get a selected student
