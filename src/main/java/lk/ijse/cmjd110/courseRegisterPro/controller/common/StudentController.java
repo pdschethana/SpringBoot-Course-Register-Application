@@ -1,17 +1,13 @@
-package lk.ijse.cmjd110.courseRegisterPro.controller;
+package lk.ijse.cmjd110.courseRegisterPro.controller.common;
 
-import lk.ijse.cmjd110.courseRegisterPro.dto.Role;
 import lk.ijse.cmjd110.courseRegisterPro.dto.UserDto;
 import lk.ijse.cmjd110.courseRegisterPro.service.StudentService;
-import lk.ijse.cmjd110.courseRegisterPro.service.impl.StudentServiceIMPL;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -25,7 +21,7 @@ public class  StudentController {
     private final StudentService studentService;
 // constructor injection
     //public StudentController(StudentService studentService) {
-        //this.studentService = studentService;
+    //this.studentService = studentService;
     //}
 
     // Save student data
@@ -36,39 +32,53 @@ public class  StudentController {
     }
 
     // Get a selected student
-    @GetMapping(value="{studentId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getSelectedStudent(@PathVariable String studentId) {
         System.out.println("Student id is " + studentId);
         //var studentServiceIMPL=new StudentServiceIMPL();
 
-        try{
-            var selectedStudent=new UserDto();
-             selectedStudent=studentService.getSelectedStudent(studentId);
-            return new ResponseEntity<>(selectedStudent,HttpStatus.OK);
-        }catch (Exception ex){
+        try {
+            var selectedStudent = new UserDto();
+            selectedStudent = studentService.getSelectedStudent(studentId);
+            return new ResponseEntity<>(selectedStudent, HttpStatus.OK);
+        } catch (Exception ex) {
             // Todo: insert a log message
             ex.printStackTrace();
-           return  new ResponseEntity<>(HttpStatus.BAD_REQUEST) ;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
 
-
     }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity<List<UserDto>> getAllStudent() {
 
         return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.OK);
     }
+
     @PatchMapping
-    public void updateStudent(@RequestParam ("stuId") String studentId,@RequestParam String stuCity,@RequestBody UserDto toBeUpdatedStudentDetails){
-        System.out.println("Student ID" +studentId);
-        System.out.println("student city" +stuCity);
-        System.out.println("To be updated students Details"+toBeUpdatedStudentDetails);
-    }
-    @DeleteMapping
-    public void deleteStudent(@RequestHeader("X-studentId") String studentId){
-        System.out.println("To be deleted ID : " +studentId);
+    public ResponseEntity<Void> updateStudent(@RequestParam("id") String studentId, @RequestBody UserDto toBeUpdatedStudentDetails) {
+
+        try {
+            studentService.updateStudent(studentId, toBeUpdatedStudentDetails);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
+    @DeleteMapping("{studentId}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable String studentId) {
+        try {
+            studentService.deleteStudent(studentId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        } catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }
+

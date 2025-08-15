@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 // to override the toString method
 public class UserDto implements Serializable {
-    private String userId;
+    private String Id;
     private String firstName;
     private String lastName;
     private String email;

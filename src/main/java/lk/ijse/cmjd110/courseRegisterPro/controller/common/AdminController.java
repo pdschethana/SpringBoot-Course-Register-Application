@@ -1,8 +1,7 @@
-package lk.ijse.cmjd110.courseRegisterPro.controller;
+package lk.ijse.cmjd110.courseRegisterPro.controller.common;
 
 import lk.ijse.cmjd110.courseRegisterPro.dto.UserDto;
 import lk.ijse.cmjd110.courseRegisterPro.service.AdminService;
-import lk.ijse.cmjd110.courseRegisterPro.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -12,6 +12,6 @@ public interface StudentService {
 
     List<UserDto> getAllStudents();
 
-    void updateStudent(String studentId, UserDto toBeUpdatedStudent);
-    void deleteStudent(String studentId);
+    void updateStudent(String studentId, UserDto toBeUpdatedStudent) throws Exception;
+    void deleteStudent(String studentId) throws Exception;
 }

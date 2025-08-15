@@ -34,7 +34,7 @@ public class LecturerServiceIMPL implements LecturerService {
                 Role.LECTURER
         );
 
-        if (lecturerId.equals(selectedLecturer.getUserId())) {
+        if (lecturerId.equals(selectedLecturer.getId())) {
             return selectedLecturer;
         }
 

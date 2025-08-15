@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -23,7 +25,7 @@ public class StudentServiceIMPL implements StudentService {
     @Override
     public void saveStudent(UserDto student) {
         var studentEntity=conversionHandle.toStudentEntity(student);
-        studentEntity.setStudentId(IDGenerator.studentIdGen());
+        studentEntity.setId(IDGenerator.studentIdGen());
         studentDao.save(studentEntity);
 
     }
@@ -31,80 +33,51 @@ public class StudentServiceIMPL implements StudentService {
     @Override
     public UserDto getSelectedStudent(String studentId) throws Exception {
 
+        Optional<StudentEntity> foundStudent=studentDao.findById(studentId);
+if (!foundStudent.isPresent()){
+    throw new Exception("Student not found");
+}
+    StudentEntity selectedStudent=studentDao.getReferenceById(studentId);
+    return conversionHandle.toStudentDTO(selectedStudent);
 
-        // Hardcoded dummy data
 
-        //return new UserDto                 can write like this . inline variable.
-        UserDto selectedStudent = new UserDto(
-                "U001",
-                "Supuni",
-                "Chethana",
-                "supuni@example.com",
-                "No. 123",
-                "Main Street",
-                "Ward Place",
-                "Colombo",
-                "securePassword123",
-                Role.STUDENT
-        );
-        if (studentId.equals(selectedStudent.getUserId())) {
-
-            return selectedStudent;
-        }
-        throw new Exception("Student not found");
     }
 
     @Override
     public List<UserDto> getAllStudents() {
-        List<UserDto> studentList = Arrays.asList(
-                new UserDto(
-                        "U001",
-                        "Supuni",
-                        "Chethana",
-                        "supuni@example.com",
-                        "No. 123",
-                        "Main Street",
-                        "Ward Place",
-                        "Colombo",
-                        "securePassword123",
-                        Role.STUDENT
-                ),
-                new UserDto(
-                        "U002",
-                        "Kasun",
-                        "Perera",
-                        "kasun@example.com",
-                        "No. 456",
-                        "Park Avenue",
-                        "Liberty Circle",
-                        "Galle",
-                        "password456",
-                        Role.STUDENT
-                ),
-                new UserDto(
-                        "U003",
-                        "Nadeesha",
-                        "Fernando",
-                        "nadeesha@example.com",
-                        "No. 789",
-                        "River Road",
-                        "Palm Grove",
-                        "Kandy",
-                        "mypassword789",
-                        Role.STUDENT
-                )
-        );
-return studentList;
+
+        return  conversionHandle.getStudentDTOList(studentDao.findAll());
 
     }
 
     @Override
-    public void updateStudent(String studentId, UserDto toBeUpdatedStudent) {
+    public void updateStudent(String studentId, UserDto toBeUpdatedStudent) throws Exception {
+        Optional<StudentEntity> foundStudent=studentDao.findById(studentId);
+        if (!foundStudent.isPresent()){
+            throw new Exception("Student not found");
+        }
+        foundStudent.get().setCity(toBeUpdatedStudent.getCity());
+        foundStudent.get().setEmail(toBeUpdatedStudent.getEmail());
+        foundStudent.get().setFirstName(toBeUpdatedStudent.getFirstName());
+        foundStudent.get().setLastName(toBeUpdatedStudent.getLastName());
+        foundStudent.get().setAddressLine1(toBeUpdatedStudent.getAddressLine1());
+        foundStudent.get().setAddressLine2(toBeUpdatedStudent.getAddressLine2());
+        foundStudent.get().setAddressLine3(toBeUpdatedStudent.getAddressLine3());
+        foundStudent.get().setPassword(toBeUpdatedStudent.getPassword());
+        foundStudent.get().setRole(toBeUpdatedStudent.getRole());
+
+
 
     }
 
     @Override
-    public void deleteStudent(String studentId) {
+    public void deleteStudent(String studentId) throws Exception {
+
+        Optional<StudentEntity> foundStudent=studentDao.findById(studentId);
+        if (!foundStudent.isPresent()){
+            throw new Exception("Student not found");
+        }
+        studentDao.deleteById(studentId);
 
     }
 }
